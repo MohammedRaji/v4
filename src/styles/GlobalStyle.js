@@ -12,6 +12,7 @@ const GlobalStyle = createGlobalStyle`
     --light-navy: #112240;
     --lightest-navy: #233554;
     --navy-shadow: rgba(2, 12, 27, 0.7);
+    --dark-slate: #495670;
     --slate: #8892b0;
     --light-slate: #a8b2d1;
     --lightest-slate: #ccd6f6;
@@ -61,8 +62,30 @@ const GlobalStyle = createGlobalStyle`
   }
 
   ::selection {
-    background-color: var(--slate);
+    background-color: var(--lightest-navy);
     color: var(--lightest-slate);
+  }
+
+  :focus {
+    outline: 2px dashed var(--green);
+    outline-offset: 3px;
+  }
+
+  /* Scrollbar Styles */
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--dark-slate) var(--navy);
+  }
+  body::-webkit-scrollbar {
+    width: 12px;
+  }
+  body::-webkit-scrollbar-track {
+    background: var(--navy);
+  }
+  body::-webkit-scrollbar-thumb {
+    background-color: var(--dark-slate);
+    border: 3px solid var(--navy);
+    border-radius: 10px;
   }
 
   body {
@@ -256,7 +279,6 @@ const GlobalStyle = createGlobalStyle`
     color: inherit;
     position: relative;
     transition: var(--transition);
-    cursor: pointer;
 
     &:hover,
     &:focus {
@@ -265,6 +287,10 @@ const GlobalStyle = createGlobalStyle`
 
     &.inline-link {
       ${({ theme }) => theme.mixins.inlineLink};
+    }
+
+    &[target='_blank'] {
+      cursor: ne-resize;
     }
   }
 
@@ -357,6 +383,29 @@ const GlobalStyle = createGlobalStyle`
   code {
     font-family: var(--font-mono);
     font-size: var(--fz-md);
+  }
+
+  .skip-to-content {
+    ${({ theme }) => theme.mixins.button};
+    position: absolute;
+    top: auto;
+    left: -999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    z-index: -99;
+
+    &:focus,
+    &:active {
+      background-color: var(--green);
+      color: var(--navy);
+      top: 0;
+      left: 0;
+      width: auto;
+      height: auto;
+      overflow: auto;
+      z-index: 99;
+    }
   }
 
   #logo {
